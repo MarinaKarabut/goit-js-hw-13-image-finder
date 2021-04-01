@@ -3,9 +3,11 @@ import ApiService from './scripts/apiService.js'
 import cardPhotoTpl from './templates/cardPhoto.hbs'
 import * as basicLightbox from 'basiclightbox'
 import 'basiclightbox/dist/basicLightbox.min.css';
-import { alert, error } from'@pnotify/core';
+import {  error } from '@pnotify/core';
+// import { defaults } from '@pnotify/core';
 import"@pnotify/core/dist/BrightTheme.css"
 import"@pnotify/core/dist/PNotify.css";
+
 
 
 var debounce = require('lodash.debounce');
@@ -33,18 +35,18 @@ gallery.addEventListener('click', function (e) {
 }
 )
 
-
 function onSearchImg(e) {
     e.preventDefault()
     apiService.query = e.target.value
 
     apiService.resetPage()
     apiService.fetchArticles().then(hits => {
+         if (!hits.length) {
+            onError('"Not found. Please enter a more specific query!"')
+        }
         clearMarkupPhotoCard()
-        renderMarkupPhotoCard(hits)
+        renderMarkupPhotoCard(hits) 
     })
-    
-
 }
 
 function onLoadMore() {
@@ -77,6 +79,11 @@ function clearMarkupPhotoCard() {
 
 
 
+function onError(message) {
+    error({
+        text: message
+    })
+ }
 
 
 
