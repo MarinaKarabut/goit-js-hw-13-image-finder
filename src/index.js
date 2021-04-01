@@ -4,7 +4,6 @@ import cardPhotoTpl from './templates/cardPhoto.hbs'
 import * as basicLightbox from 'basiclightbox'
 import 'basiclightbox/dist/basicLightbox.min.css';
 import {  error } from '@pnotify/core';
-// import { defaults } from '@pnotify/core';
 import"@pnotify/core/dist/BrightTheme.css"
 import"@pnotify/core/dist/PNotify.css";
 
