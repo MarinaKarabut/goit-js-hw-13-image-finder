@@ -3,6 +3,7 @@
   max-width: 100%;
   height: auto;
 } */
+
 body {
   background-color: #f5f4fa;
 }
@@ -58,6 +59,7 @@ body {
 
 .gallery {
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
   margin-left: -30px;
   margin-top: -30px;
@@ -73,6 +75,11 @@ body {
     0px 2px 1px rgba(0, 0, 0, 0.2);
   border-radius: 0px 0px 4px 4px;
   background-color: #ffffff;
+  transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.photo-card:hover {
+  transform: scale(1.06);
 }
 .photo-card-img {
   width: 400px;

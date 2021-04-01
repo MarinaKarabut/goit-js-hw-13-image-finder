@@ -48,13 +48,20 @@ function onSearchImg(e) {
 }
 
 function onLoadMore() {
-    apiService.fetchArticles().then(renderMarkupPhotoCard)
-    const clientHeight = document.documentElement.clientHeight
-    window.scrollTo({
-    left: 0,
-    top: clientHeight,
-    behavior: 'smooth'
-});
+    const lastElement = document.querySelector('.gallery .gallery-photo-item:last-child')
+
+    apiService.fetchArticles().then((result) => {
+        renderMarkupPhotoCard(result);
+
+        if (lastElement) {
+            window.scrollTo({
+                top: lastElement.offsetTop + 410,
+                behavior: "smooth"
+            });        
+        }
+
+    })
+    
 }
 
 
@@ -79,12 +86,6 @@ function clearMarkupPhotoCard() {
 
 
 
-
-
-
-// import { alert, error } from'@pnotify/core';
-// import"@pnotify/core/dist/BrightTheme.css"
-// import"@pnotify/core/dist/PNotify.css";
 
 
 
