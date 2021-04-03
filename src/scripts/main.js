@@ -3,7 +3,7 @@ import ApiService from './apiService'
 import cardPhotoTpl from '../templates/cardPhoto.hbs'
 import * as basicLightbox from 'basiclightbox'
 import 'basiclightbox/dist/basicLightbox.min.css';
-import {  error } from '@pnotify/core';
+import {  error, notice } from '@pnotify/core';
 import"@pnotify/core/dist/BrightTheme.css"
 import "@pnotify/core/dist/PNotify.css";
 
@@ -41,13 +41,19 @@ function onSearchImg(e) {
 
     apiService.resetPage()
     apiService.fetchArticles().then(hits => {
-         if (!hits.length) {
+        if (!hits.length) {
+            clearMarkupPhotoCard()
             onError('"Not found. Please enter a more specific query!"')
+            LoadMoreBtn.classList.add('hidden')
+        } else {
+            LoadMoreBtn.classList.remove('hidden')
+            clearMarkupPhotoCard()
+            renderMarkupPhotoCard(hits)
+            notice({
+                delay: 1500,
+                text: 'Congratulations! Matches found.'
+            })
         }
-        clearMarkupPhotoCard()
-        renderMarkupPhotoCard(hits)
-        LoadMoreBtn.classList.remove('hidden')
-        
     })
 }
 
@@ -83,6 +89,7 @@ function clearMarkupPhotoCard() {
 
 function onError(message) {
     error({
+        delay: 1500,
         text: message
     })
  }
